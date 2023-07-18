@@ -1,0 +1,21 @@
+* Pseudo-code
+** Mostly Im writing this to restructure
+
+1 - make an html and css code with all the plugins and scripts attached
+2 - give it a nav bar w a logo in one div, and fake ul links on the other, split page look
+3 - js for landing modal
+4 - html and css for datepicker, guest input and search button
+5 - create all the item data, in separate data.js to be organised
+6 - make guests buttons work
+7 - make datepicker work
+8 - create and run function to display all items
+    - modal overlaying it?
+9 - create function to hide NOTresults
+9 - function to filter and hide everything else
+    - event listener on search button
+    - get inputs (guests, dates > diff > total days)
+    - get NOTresults from:
+    - parseInt for max and min guests and days
+    - return inputs guests and total days if theyre NOT within min/max guests and dates
+    - run function to hide NOTresults
+function NOTresults
