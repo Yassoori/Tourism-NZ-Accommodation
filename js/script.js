@@ -19,7 +19,7 @@ const decrementBtn = document.getElementById("decrement-button");
 const incrementBtn = document.getElementById("increment-button");
 const guestsInput = document.getElementById("guests");
 
-// -------- Accommodation --------
+// -------- others --------
 
 const accommodationsContainer = document.getElementById(
   "accommodations-container"
@@ -27,6 +27,7 @@ const accommodationsContainer = document.getElementById(
 const moreInfoModal = document.getElementById("more-info-modal");
 const moreInfoModalContent = document.getElementById("more-info-modal-content");
 const backButton = document.getElementById("back-button");
+const statusMessage = document.getElementById("status-message");
 
 // -------- Search Button -------
 const searchButton = document.getElementById("search-button");
@@ -209,201 +210,110 @@ function handleDateChange() {
 startDate.addEventListener("changeDate", handleDateChange);
 endDate.addEventListener("changeDate", handleDateChange);
 
-// -------- Accommodation --------
+// -------- Fixed it like the Party Planner lesson --------
 
-function displayAllAccommodation() {
+// function validateData(userdata) {
+//   if (userdata.guests === "" || userdata.totalDays === "") {
+//     statusMessage.innerHTML = "Please enter both fields.";
+//     return false;
+//   } else {
+//     statusMessage.innerHTML = "";
+//     return true;
+//   }
+// }
+
+function validateData(guests, totalDays) {
+  if (guests === "" || totalDays === "") {
+    statusMessage.innerHTML = "Please enter both fields.";
+    return false;
+  } else {
+    statusMessage.innerHTML = "";
+    return true;
+  }
+}
+
+function displayAccommodations(place) {
   accommodationsContainer.innerHTML = "";
-  for (let i = 0; i < accommodations.length; i++) {
-    accommodationsContainer.innerHTML += `
-            <div class="search-item-tile">
-                <h2>${accommodations[i].title}</h2>
-                <div class="swiper-container">
-                    <div class="swiper-wrapper">
-                    ${accommodations[i].gallery
-                      .map(
-                        (image) =>
-                          `<div class="swiper-slide">
-                            <img src="${image}" alt=""/>
-                        </div>`
-                      )
-                      .join("")}
-                        <div class="swiper-pagination"></div>
-                        <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
-                    </div>
-                </div>                    
-                <div class="info-summary">
-                    <h4>${accommodations[i].location}</h4>
-                    <p>${accommodations[i].guest_range} Guests</p>
-                    <span><img src="${
-                      accommodations[i].amenities_bed_icon
-                    }"/></span>
-                    <span><img src="${
-                      accommodations[i].amenities_extra_icon
-                    }"/></span>
-                    <p class="rating">${accommodations[i].rating}</p>
-                    <p>${accommodations[i].meals} available</p>                
-                    <div class="more-info-button" id="info-button" >
-                      <h2 class="tile-price" value="test">$${
-                        accommodations[i].price
-                      } a night</h3>
-                    </div>
+  if (0 < accommodations.length) {
+    for (let i = 0; i < place.length; i++) {
+      let accommodation = accommodations[i];
+      accommodationsContainer.innerHTML += `
+        <div class="search-item-tile">
+            <h2>${accommodation.title}</h2>
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                ${accommodation.gallery
+                  .map(
+                    (image) =>
+                      `<div class="swiper-slide">
+                        <img src="${image}" alt=""/>
+                    </div>`
+                  )
+                  .join("")}
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>                    
+            <div class="info-summary">
+                <h4>${accommodation.location}</h4>
+                <p>${accommodation.guest_range} Guests</p>
+                <span><img src="${accommodation.amenities_bed_icon}"/></span>
+                <span><img src="${accommodation.amenities_extra_icon}"/></span>
+                <p class="rating">${accommodation.rating}</p>
+                <p>${accommodation.meals} available</p>                
+                <div class="more-info-button" id="info-button" >
+                <h3 class="total-cost">$${
+                  accommodation.price * accommodation.price
+                }</h3>
+                <h2 class="tile-price" value="test">$${
+                  accommodation.price
+                } a night</h3>
                 </div>
             </div>
+        </div>
         `;
-    // accommodationsContainer.appendChild(item);
-    // moreInfoButton = document.getElementsByClassName(
-    //   "more-info-button"
-    // ).setAttribute = accommodations.id;
-    // addButtonEvents();
-    // // Initialize Swiper for the current item
-    // new Swiper(item.querySelector(".swiper-container"), {
-    //   slidesPerView: 1,
-    //   spaceBetween: 0,
-    //   navigation: {
-    //     nextEl: ".swiper-button-next",
-    //     prevEl: ".swiper-button-prev",
-    //   },
-    //   loop: true,
-    //   pagination: {
-    //     el: ".swiper-pagination",
-    //     clickable: true,
-    //   },
-    // });
+    }
+  } else {
+    statusMessage.innerHTML = `Sorry, there's nothing avaliable`;
   }
 }
 
-displayAllAccommodation();
-
-// -------- Search Button -------
-
-searchButton.addEventListener("click", () => {
-  const guests = parseInt(guestsInput.value);
-  const dates = rangepicker.getDates();
-  const difference = dates[1].getTime() - dates[0].getTime();
-  const totalDays = Math.ceil(difference / (1000 * 3600 * 24));
-
-  const filteredAccommodation = accommodations.filter((accommodationItem) => {
-    const minGuests = parseInt(accommodationItem.min_guests);
-    const maxGuests = parseInt(accommodationItem.max_guests);
-    const minDays = parseInt(accommodationItem.min_days);
-    const maxDays = parseInt(accommodationItem.max_days);
-
-    console.log(`${guests}, ${totalDays}`);
-
-    return (
-      guests >= minGuests &&
-      guests <= maxGuests &&
-      totalDays >= minDays &&
-      totalDays <= maxDays
-    );
-  });
-
-  showSearchResults(filteredAccommodation);
-});
-
-function showSearchResults(accommodations) {
+function findAccommodations(guests, totalDays) {
   accommodationsContainer.innerHTML = "";
+  let accommodationsToShow = [];
+  for (let i = 0; i < accommodations.length; i++) {
+    let accommodation = accommodations[i];
+    // let totalCost = guests * accommodation.price;
 
-  if (accommodations.length === 0) {
-    accommodationsContainer.innerHTML = `
-      <div id="nothing-found">
-        <h2>No accommodations available.</h2>
-      </div>
-      `;
-    return;
+    if (
+      guests >= accommodation.min_guests &&
+      guests <= accommodation.max_guests &&
+      totalDays >= accommodation.min_days &&
+      totalDays <= accommodation.max_days
+    ) {
+      accommodationsToShow.push(accommodation);
+    }
   }
-
-  accommodations.forEach((accommodation) => {
-    const {
-      title,
-      location,
-      guest_range,
-      amenities_bed_icon,
-      amenities_extra_icon,
-      rating,
-      meals,
-      price,
-      gallery,
-    } = accommodation;
-
-    // const item = document.createElement("div");
-    accommodationsContainer.innerHTML = `
-    <div class="search-item-tile">
-      <h2>${title}</h2>
-      <div class="swiper-container">
-        <div class="swiper-wrapper">
-          ${accommodation.gallery
-            .map(
-              (image) =>
-                `<div class="swiper-slide">
-                  <img src="${image}" alt=""/>
-                </div>`
-            )
-            .join("")}
-        </div>
-        <div class="swiper-pagination"></div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-      </div>
-      <div class="info-summary">
-        <h4>${location}</h4>
-        <p>${guest_range} Guests</p>
-        <span><img src="${amenities_bed_icon}"/></span>
-        <span><img src="${amenities_extra_icon}"/></span>
-        <div class="rating">
-          ${rating}
-        </div>
-          <p>${meals} available</p>
-      </div>
-      <div class="more-info-button" id="info-button" >
-        <h2 class="tile-price" value="test">$${price} a night</h3>
-      </div>
-    </div>
-    `;
-    // accommodationsContainer.appendChild(item);
-    // moreInfoButton = document.getElementsByClassName("more-info-button");
-
-    // moreInfoButton[i].addEventListener("click", function () {
-    //   showInfoModal(
-    //     title,
-    //     image,
-    //     location,
-    //     guest_range,
-    //     amenities,
-    //     blurb,
-    //     meals,
-    //     rating,
-    //     price
-    //   );
-    // });
-
-    // .setAttribute = accommodation.id;
-    // addButtonEvents();
-    // Initialize Swiper for the current item
-    // new Swiper(item.querySelector(".swiper-container"), {
-    //   slidesPerView: 1,
-    //   spaceBetween: 0,
-    //   navigation: {
-    //     nextEl: ".swiper-button-next",
-    //     prevEl: ".swiper-button-prev",
-    //   },
-    //   loop: true,
-    //   pagination: {
-    //     el: ".swiper-pagination",
-    //     clickable: true,
-    //   },
-    // });
-  });
+  displayAccommodations(accommodationsToShow, totalDays);
 }
 
-// function generateGallerySlides(gallery) {
-//   return gallery
-//     .map(
-//       (image) => `<div class="swiper-slide"><img src="${image}" alt=""></div>`
-//     )
-//     .join("");
-// }
+searchButton.addEventListener("click", function () {
+  event.preventDefault();
+  // let userdata = {
+  //   guests: parseInt(guestsInput.value)
+  // };
+  let guests = parseInt(guestsInput.value);
+  let totalDays = parseInt(dateStatus.innerText.split(":")[1].trim());
+  console.log(`22222 ${guests},${totalDays}`);
+  // console.log(`11111 ${guests}, ${totalDays}`);
+  // let validated = validateData(userdata);
+  let validated = validateData(guests, totalDays);
+  if (validated) {
+    // findAccommodations(userdata);
+    findAccommodations(guests, totalDays);
+  }
+});
 
 // -------- Swiper & AOS --------
 
