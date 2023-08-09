@@ -15,7 +15,7 @@ p {
   font-family: $bodyfont;
 }
 
-// -------- nav --------
+// -------- Nav --------
 
 .navbar {
   background-color: $white;
@@ -24,6 +24,7 @@ p {
   height: 50px;
   padding: 0 20px;
   color: $green;
+
   h2 {
     font-family: $logofont;
   }
@@ -39,7 +40,7 @@ p {
 }
 
 .nav-links li {
-  margin-right: 15px;
+  margin-right: 20px;
 }
 
 .nav-links li a {
@@ -50,19 +51,19 @@ p {
 #signup {
   color: $white;
   background-color: $green;
-  border-radius: 18px;
-  padding: 8px 12px 8px 12px;
+  border-radius: 6px;
+  padding: 15px 24px 15px 24px;
 }
 
 // -------- Modal --------
 
-.modal {
+#landing-modal {
   position: fixed;
   top: 50px;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0);
+  // background-color: rgba(255, 255, 255, 0);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -72,7 +73,6 @@ p {
 
   .modal-content {
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.5);
     border-radius: 5px;
     text-align: center;
   }
@@ -81,23 +81,28 @@ p {
     font-size: 20px;
     cursor: pointer;
   }
+
+  h1 {
+    font-family: $logofont;
+    font-size: 48px;
+    margin-bottom: 2rem;
+  }
+
+  #fine-print {
+    font-family: $logofont;
+    font-size: 20px;
+  }
 }
 
-/* vertical division */
 #content {
   display: flex;
-  height: 100vh; /* Adjust the height as needed */
-  // background-image: url("/yasser saeed summative 2/media/background2.png");
-  // background-size: cover;
-  // background-repeat: no-repeat;
-  // background-position: 50% 50%;
+  height: 100vh;
 }
 
-// ------- left --------
+// ------- Left --------
 
 .left-half {
   flex: 1;
-  // background-color: $green;
   text-align: center;
   position: relative;
 
@@ -194,7 +199,7 @@ p {
   }
 }
 
-// -------- right --------
+// -------- Right --------
 
 .right-half {
   position: relative;
@@ -202,6 +207,11 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#status-message {
+  font-size: 24px;
+  color: $green;
 }
 
 .grid-container {
@@ -214,16 +224,13 @@ p {
 }
 
 .search-item-tile {
-  height: 320px;
-  width: 240px;
   background-color: $white;
   border-radius: 6px;
 
   h2 {
     color: $green;
-    font-size: 16px;
-    width: 100%;
-    height: 60px;
+    font-size: 18px;
+    padding: 1rem;
     background-color: $white;
     border-radius: 6px;
     display: flex;
@@ -241,6 +248,7 @@ p {
     width: 240px;
     height: 140px;
     overflow-x: hidden;
+    margin-bottom: 1rem;
   }
 
   .swiper-slide {
@@ -272,106 +280,40 @@ p {
   }
 
   .info-summary {
-    height: 60px;
-    position: relative;
-    top: 0;
-    left: 0;
-    height: 60px;
+    display: flex;
     padding: 0pc 10px 0 10px;
+    justify-content: space-between;
 
+    .tile-guests,
+    .tile-rating,
+    .nightly-price,
     img {
-      width: 6px;
+      margin-bottom: 0.5rem;
     }
 
-    .rating {
-      position: absolute;
-      top: 0px;
-      right: 10px;
+    img {
+      width: 20px;
+    }
+
+    .tile-right,
+    .tile-rating-star {
+      text-align: end;
+    }
+
+    .tile-rating-star {
+      display: flex;
+      justify-content: end;
+    }
+
+    .star {
+      width: 20px;
+      margin-left: 0.5rem;
     }
   }
 }
 
-// ---- info -----
+// -------- More Info --------
 
-// #more-info {
-//   background: $white;
-//   position: absolute;
-//   top: 50px;
-//   left: 0;
-//   width: 100%;
-//   height: 100%;
-//   background-color: rgba(255, 255, 255, 0);
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   z-index: 9999;
-
-//   .swiper-container {
-//     position: relative;
-//     top: 0;
-//     right: 0;
-//     width: 200px;
-//   }
-
-//   .info-left {
-//     flex: 1;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     padding: 20px;
-//     width: 100%;
-
-//     .mapbox-container {
-//       background: white;
-//       color: black;
-//       width: 100%;
-//     }
-//   }
-//   .info-right {
-//     flex: 1;
-//     padding: 20px;
-//     width: 100%;
-
-//     // .swiper-container {
-//     //   position: relative;
-//     //   width: 80%;
-//     //   height: 30%;
-//     //   overflow-x: hidden;
-//     // }
-
-//     // .swiper-slide {
-//     //   text-align: center;
-//     //   font-size: 18px;
-//     //   background: $white;
-//     //   display: flex;
-//     //   justify-content: center;
-//     //   align-items: center;
-//     // }
-
-//     // .swiper-slide img {
-//     //   display: block;
-//     //   width: 100%;
-//     //   height: 100%;
-//     //   object-fit: cover;
-//     // }
-
-//     // .swiper-button-prev {
-//     //   left: 5%;
-//     //   top: 50%;
-//     //   height: 50%;
-//     // }
-
-//     // .swiper-button-next {
-//     //   right: 5%;
-//     //   top: 50%;
-//     //   height: 50%;
-//     // }
-//   }
-// }
-
-/* ... (other styles) ... */
-
-/* more-info-modal styles */
 #more-info-modal {
   background-color: rgba(0, 0, 0, 0);
 }
@@ -494,23 +436,20 @@ p {
 }
 
 #back-button {
-  background-color: #ffffff;
-  color: #567939;
-  width: 36px;
-  height: 36px;
-  font-size: 16px;
-  font-family: sans-serif;
-  padding: 8px 16px;
-  border-radius: 18px;
+  background-color: $white;
+  color: $green;
   cursor: pointer;
-  margin-top: 20px;
   display: flex;
   text-align: center;
   justify-content: center;
+  align-items: center;
   position: absolute;
-  right: 120px;
-  top: 12px;
-  align-items: flex-end;
+  right: 180px;
+  top: 86px;
+  padding: 8px 16px;
+  border-radius: 18px;
+  width: 36px;
+  height: 36px;
+  font-size: 20px;
+  font-family: sans-serif;
 }
-//   }
-// }
