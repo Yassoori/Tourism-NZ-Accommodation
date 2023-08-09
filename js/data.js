@@ -1,5 +1,3 @@
-console.log(`reading data`);
-
 const accommodations = [
   {
     id: 0,
@@ -99,5 +97,3 @@ const accommodations = [
     max_days: "15",
   },
 ];
-
-console.log(`reading data complete`);

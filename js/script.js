@@ -79,7 +79,6 @@ function handleDateChange() {
   let difference = dates[1].getTime() - dates[0].getTime();
   let totalDays = Math.ceil(difference / (1000 * 3600 * 24));
   if (totalDays > 0) {
-    console.log(totalDays);
     dateStatus.classList.add("active");
     dateStatus.innerHTML = `Length of stay: ${totalDays}`;
   }
@@ -267,7 +266,6 @@ searchButton.addEventListener("click", function (event) {
   event.preventDefault();
   let guests = parseInt(guestsInput.value);
   let totalDays = parseInt(dateStatus.innerText.split(":")[1].trim());
-  console.log(`${guests} guests, and ${totalDays} days`);
   let validated = validateData(guests, totalDays);
   if (validated) {
     findAccommodations(guests, totalDays);
