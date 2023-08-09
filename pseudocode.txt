@@ -1,5 +1,5 @@
-* Pseudo-code
-** Mostly Im writing this to restructure
+# Pseudo-code
+## Mostly Im writing this to restructure
 
 1 - make an html and css code with all the plugins and scripts attached
 2 - give it a nav bar w a logo in one div, and fake ul links on the other, split page look
@@ -19,3 +19,19 @@
     - return inputs guests and total days if theyre NOT within min/max guests and dates
     - run function to hide NOTresults
 function NOTresults
+
+### So I didnt stick to that at all, but whatever it mostly works now
+
+## To Do August:
+
+- style modal
+- style more info modal
+- fix amenities icons
+- fix img links
+
+- mapbox
+
+- chatbox
+- meal and pickup/drop off options
+
+- responsiveness

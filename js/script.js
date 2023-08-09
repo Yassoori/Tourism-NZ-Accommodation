@@ -21,11 +21,12 @@ const guestsInput = document.getElementById("guests");
 
 // -------- others --------
 
+const searchbar = document.getElementsByClassName("centered-content");
 const accommodationsContainer = document.getElementById(
   "accommodations-container"
 );
 const moreInfoModal = document.getElementById("more-info-modal");
-const moreInfoModalContent = document.getElementById("more-info-modal-content");
+// const moreInfoModalContent = document.getElementById("more-info-modal-content");
 const backButton = document.getElementById("back-button");
 const statusMessage = document.getElementById("status-message");
 
@@ -212,16 +213,6 @@ endDate.addEventListener("changeDate", handleDateChange);
 
 // -------- Fixed it like the Party Planner lesson --------
 
-// function validateData(userdata) {
-//   if (userdata.guests === "" || userdata.totalDays === "") {
-//     statusMessage.innerHTML = "Please enter both fields.";
-//     return false;
-//   } else {
-//     statusMessage.innerHTML = "";
-//     return true;
-//   }
-// }
-
 function validateData(guests, totalDays) {
   if (guests === "" || totalDays === "") {
     statusMessage.innerHTML = "Please enter both fields.";
@@ -232,11 +223,18 @@ function validateData(guests, totalDays) {
   }
 }
 
-function displayAccommodations(place) {
+function addInfoButton() {
+  console.log("addInfoButton Function");
+}
+
+function displayAccommodations(place, totalDays) {
   accommodationsContainer.innerHTML = "";
-  if (0 < accommodations.length) {
+  if (place.length > 0) {
+    // Check if there are accommodations to display
     for (let i = 0; i < place.length; i++) {
-      let accommodation = accommodations[i];
+      let accommodation = place[i]; // Use place[i] instead of accommodations[i]
+      const totalCost = guests * accommodation.price;
+
       accommodationsContainer.innerHTML += `
         <div class="search-item-tile">
             <h2>${accommodation.title}</h2>
@@ -250,30 +248,121 @@ function displayAccommodations(place) {
                     </div>`
                   )
                   .join("")}
-                    <div class="swiper-pagination"></div>
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
                 </div>
+                <div class="swiper-button-next swiper-button-next-${i}"></div>
+                <div class="swiper-button-prev swiper-button-prev-${i}"></div>
             </div>                    
             <div class="info-summary">
                 <h4>${accommodation.location}</h4>
                 <p>${accommodation.guest_range} Guests</p>
-                <span><img src="${accommodation.amenities_bed_icon}"/></span>
-                <span><img src="${accommodation.amenities_extra_icon}"/></span>
                 <p class="rating">${accommodation.rating}</p>
-                <p>${accommodation.meals} available</p>                
-                <div class="more-info-button" id="info-button" >
-                <h3 class="total-cost">$${
-                  accommodation.price * accommodation.price
-                }</h3>
-                <h2 class="tile-price" value="test">$${
-                  accommodation.price
-                } a night</h3>
-                </div>
+                <p>${accommodation.meals} available</p> 
+                <p class="total-cost">$${
+                  accommodation.price * totalDays
+                }</p>               
+            </div>
+            <div class="info-button" id="info-button" >
+              <h2 class="tile-price" value="test">$${
+                accommodation.price
+              } a night</h3>
             </div>
         </div>
         `;
+      // const infoButton = document.getElementsByClassName("info-button");
+      // addInfoButton();
     }
+
+    // Initialize Swiper for all search-item-tiles
+    const swiperContainers =
+      accommodationsContainer.querySelectorAll(".swiper-container");
+
+    swiperContainers.forEach((swiperContainer, index) => {
+      const swiper = new Swiper(swiperContainer, {
+        slidesPerView: 1,
+        spaceBetween: 0,
+        navigation: {
+          nextEl: `.swiper-button-next-${index}`,
+          prevEl: `.swiper-button-prev-${index}`,
+        },
+        loop: true,
+      });
+    });
+
+    // Add event listener to all info-button elements
+    const infoButtons =
+      accommodationsContainer.querySelectorAll(".info-button");
+    infoButtons.forEach((infoButton, index) => {
+      infoButton.addEventListener("click", () => {
+        // Handle the click event for each info-button here
+        const accommodation = place[index]; // Get the corresponding accommodation data
+        // Use the accommodation data to update the modal content
+        moreInfoModal.innerHTML = `
+          <div id="back-button">X</div>
+          <div id="more-info-content">
+            <div class="info-left">
+              <h2 class="mapbox-container">PRETEND THIS IS MAPBOX STUFF</h2>
+            </div>
+            <div class="info-right">
+              <div class="swiper-container" id="modal-swiper-${index}"> 
+                <div class="swiper-wrapper">
+                  ${accommodation.gallery
+                    .map(
+                      (image) => `
+                          <div class="swiper-slide">
+                            <img src="${image}" alt="" class="info-img"/>
+                          </div>
+                        `
+                    )
+                    .join("")}
+                </div>
+                <div class="swiper-button-next swiper-button-next-${index}"></div>
+                <div class="swiper-button-prev swiper-button-prev-${index}"></div>
+              </div>
+              <div>
+              <div class="title-rating">
+                <h2>${accommodation.title}</h2>
+                <div class="rating-star">
+                  <p class="rating">${accommodation.rating}</p>
+                  <img src="/media/star.png" alt="" class="star" />
+                </div>
+              </div>
+              <div class="more-info-details">
+                <h4>${accommodation.location}</h4>
+                <p>
+                  ${accommodation.guest_range} Guests ${accommodation.amenities}
+                </p>
+                <div>
+                  <p>${accommodation.blurb}</p>
+                  <p>${accommodation.meals} available</p>
+                </div>
+              </div>
+              <h3 class="more-info-price">$${accommodation.price} a night</h3>
+              </div>
+            </div>
+          </div>
+        `;
+        // Display the modal
+        moreInfoModal.style.display = "block";
+        content.style.display = "none";
+        // Event listener for the back button inside the modal
+        const backButton = document.getElementById("back-button");
+        backButton.addEventListener("click", () => {
+          moreInfoModal.style.display = "none";
+          content.style.display = "flex";
+        });
+
+        // Initialize Swiper for the images inside the modal
+        const modalSwiper = new Swiper(`#modal-swiper-${index}`, {
+          slidesPerView: 1,
+          spaceBetween: 0,
+          navigation: {
+            nextEl: `.swiper-button-next-${index}`,
+            prevEl: `.swiper-button-prev-${index}`,
+          },
+          loop: true,
+        });
+      });
+    });
   } else {
     statusMessage.innerHTML = `Sorry, there's nothing avaliable`;
   }
@@ -284,8 +373,6 @@ function findAccommodations(guests, totalDays) {
   let accommodationsToShow = [];
   for (let i = 0; i < accommodations.length; i++) {
     let accommodation = accommodations[i];
-    // let totalCost = guests * accommodation.price;
-
     if (
       guests >= accommodation.min_guests &&
       guests <= accommodation.max_guests &&
@@ -298,16 +385,11 @@ function findAccommodations(guests, totalDays) {
   displayAccommodations(accommodationsToShow, totalDays);
 }
 
-searchButton.addEventListener("click", function () {
+searchButton.addEventListener("click", function (event) {
   event.preventDefault();
-  // let userdata = {
-  //   guests: parseInt(guestsInput.value)
-  // };
   let guests = parseInt(guestsInput.value);
   let totalDays = parseInt(dateStatus.innerText.split(":")[1].trim());
-  console.log(`22222 ${guests},${totalDays}`);
-  // console.log(`11111 ${guests}, ${totalDays}`);
-  // let validated = validateData(userdata);
+  console.log(`${guests} guests, and ${totalDays} days`);
   let validated = validateData(guests, totalDays);
   if (validated) {
     // findAccommodations(userdata);
@@ -319,55 +401,5 @@ searchButton.addEventListener("click", function () {
 
 // start our animation library (AOS)
 // AOS.init();
-
-// function showInfoModal(
-//   title,
-//   image,
-//   location,
-//   guest_range,
-//   amenities,
-//   blurb,
-//   meals,
-//   rating,
-//   price
-// ) {
-//   moreInfoModalContent.innerHTML = `
-//         <div id="more-info">
-//           <h2>${title}</h2>
-//           <div class="swiper-container">
-//             <div class="swiper-wrapper">
-//               $
-//               {accommodation.gallery
-//                 .map(
-//                   (image) =>
-//                     <div class="swiper-slide">
-//                       <img src="${image}" alt=""/>
-//                     </div>
-//                 )
-//                 .join("")}
-//             </div>
-//             <div class="swiper-pagination"></div>
-//             <div class="swiper-button-next"></div>
-//             <div class="swiper-button-prev"></div>
-//           </div>
-//           <div class="more-info">
-//             <h4>${location}</h4>
-//             <p>
-//               ${guest_range} Guests ${amenities}
-//             </p>
-//             <div>
-//               <p>${blurb}</p>
-//               <p>${meals} available</p>
-//             </div>
-//           </div>
-//           <div class="rating">${rating}</div>
-//           <div id="back-button">back</div>
-//           <h3 class="more-info-price">$${price} a night</h3>
-//         </div>
-//         `;
-//   moreInfoModal.classList.toggle("active");
-//   // Add click event listener to the back button
-//   backButton.addEventListener("click", function () {
-//     moreInfoModal.style.display = "none";
-//   });
-// }
+// nvm there is no scrolling anyway
+// maybe for mobile

@@ -27,7 +27,7 @@
   </head>
 
   <body>
-    <img src="/media/background2.png" alt="" />
+    <img src="/media/background2.png" alt="" id="background" />
     <nav class="navbar">
       <div class="logo">
         <h2>a place in paradise</h2>
@@ -47,6 +47,7 @@
         <button class="close-button">Enter</button>
       </div>
     </div>
+    <div id="more-info-modal" class="modal"></div>
     <div id="content">
       <div class="left-half">
         <div class="centered-content">
@@ -80,12 +81,8 @@
         </div>
       </div>
       <div class="right-half">
-        <div id="accommodations-container" class="grid-container">
-          <div id="status-message"></div>
-          <div id="more-info-modal">
-            <div id="more-info-modal-content"></div>
-          </div>
-        </div>
+        <div id="accommodations-container" class="grid-container"></div>
+        <div id="status-message"></div>
       </div>
     </div>
 
@@ -100,3 +97,8 @@
     <script src="js/script.js"></script>
   </body>
 </html>
+
+<!-- 
+  <span><img src="${accommodation.amenities_bed_icon}"/></span>
+  <span><img src="${accommodation.amenities_extra_icon}"/></span>
+-->
