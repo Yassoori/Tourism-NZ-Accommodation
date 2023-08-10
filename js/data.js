@@ -2,7 +2,7 @@ const accommodations = [
   {
     id: 0,
     title: "EcoScapes",
-    location: "",
+    coords: "-44.84277065937762, 168.3489495405128",
     gallery: [
       "https://ecoscapes.nz/wp-content/uploads/2022/06/rsz_1ecoscapes-212-1030x733.jpg",
       "https://ecoscapes.nz/wp-content/uploads/2017/02/IMG_3715-1030x663.jpg",
@@ -27,7 +27,7 @@ const accommodations = [
   {
     id: 1,
     title: "Greenstone Homestead",
-    location: "",
+    coords: "-44.92466488936464, 168.359328826587",
     gallery: [
       "https://static.wixstatic.com/media/49b47f_f2891648040446de9aaa7dfc2ea2523f~mv2.jpg/v1/fit/w_851,h_683,q_90/49b47f_f2891648040446de9aaa7dfc2ea2523f~mv2.webp",
       "https://static.wixstatic.com/media/49b47f_1181b820a5f24666b59e74779632d53e~mv2.jpg/v1/fit/w_851,h_683,q_90/49b47f_1181b820a5f24666b59e74779632d53e~mv2.webp",
@@ -52,7 +52,7 @@ const accommodations = [
   {
     id: 2,
     title: "Mount Earnslaw Motels",
-    location: "",
+    coords: "-44.84937335016071, 168.38759277344792",
     gallery: [
       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/d0/bc/86/mt-earnslaw-motel.jpg?w=1200&h=-1&s=1",
       "https://allhotels.co.nz/wp-content/uploads/2016/07/Mount-Earnslaw-Motels-2-1024x679.jpg",
@@ -76,7 +76,7 @@ const accommodations = [
   {
     id: 3,
     title: "Lodge Lorien",
-    location: "",
+    coords: "-44.88890519191798, 168.40606615640314",
     gallery: [
       "https://a0.muscache.com/im/pictures/miso/Hosting-759567286634359940/original/30977d92-5f90-493e-9ba3-8524133fe95b.jpeg?im_w=1200",
       "https://a0.muscache.com/im/pictures/miso/Hosting-759567286634359940/original/6c2bf466-e86c-4321-a4f9-0756454fe102.jpeg?im_w=1200",
