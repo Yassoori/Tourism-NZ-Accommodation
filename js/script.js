@@ -116,7 +116,6 @@ function displayAccommodations(place, totalDays) {
       accommodationsContainer.innerHTML += `
         <div class="search-item-tile">
             <h2>${accommodation.title}</h2>
-            <h3 class="tile-location">${accommodation.location}</h3>
             <div class="swiper-container">
                 <div class="swiper-wrapper">
                 ${accommodation.gallery
@@ -180,7 +179,15 @@ function displayAccommodations(place, totalDays) {
           <div id="back-button">X</div>
           <div id="more-info-content">
             <div class="info-left">
-              <h2 class="mapbox-container">PRETEND THIS IS MAPBOX STUFF</h2>
+              <div class="mapbox-container">PRETEND THIS IS MAPBOX STUFF</div>
+              <form id="contact-form" class="contact_form">          
+                <input type="text" name="sendername" class="contactform-input" id="sender" placeholder="Your name" value="" required>                                
+                <input type="text" name="mail" class="contactform-input" id="email" placeholder="Your Email" value="" required>                                
+                <textarea rows="4" name="query" cols="4" class="contactform-input  textarea" id="query" placeholder="Your query" value="" required>
+                </textarea>                
+                <button id="send" >Send</button>                
+              </form>
+              <p id="sent"></p>
             </div>
             <div class="info-right">
               <div class="swiper-container" id="modal-swiper-${index}"> 
@@ -237,6 +244,24 @@ function displayAccommodations(place, totalDays) {
             prevEl: `.swiper-button-prev-${index}`,
           },
           loop: true,
+        });
+
+        const contactFormInput =
+          document.querySelectorAll(".contactform-input");
+        const email = document.getElementById("email");
+        const sender = document.getElementById("sender");
+        const query = document.getElementById("query");
+        const send = document.getElementById("send");
+        const sent = document.getElementById("sent");
+        send.addEventListener("click", (e) => {
+          e.preventDefault();
+          if (email.value == "" || sender.value == "" || query.value == "") {
+            sent.innerHTML = `Fill in all fields`;
+          } else {
+            console.log(email.value, sender.value, query.value);
+            document.querySelectorAll(".contactform-input").value = "";
+            sent.innerHTML = `Sent`;
+          }
         });
       });
     });
