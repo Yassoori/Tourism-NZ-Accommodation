@@ -20,6 +20,7 @@ const accommodations = [
       
       Our Ecoscapes are designed to an R7 architectural level meaning you have ultimate temperature control and comfort.  Ceramic air control for heating, cooling and air circulation means the best possible internal environment.`,
     meals: "Breakfast",
+    meal_price: "18",
     price: "157",
     min_days: "1",
     max_days: "5",
@@ -45,6 +46,7 @@ const accommodations = [
   
       Located in a picturesque setting on the edge of Lake Wakatipu at the outlet of the Greenstone river, the Homestead offers the experience of being part of a working farm, a private retreat away from the hustle and bustle of Queenstown and on the doorstep of a range of outdoor activities.`,
     meals: "Breakfast and Dinner",
+    meal_price: "50",
     price: "30",
     min_days: "1",
     max_days: "10",
@@ -69,6 +71,7 @@ const accommodations = [
   
       Free unlimited WiFi is provided. Laundry facilities are also available. Suites are all serviced daily as required. Please book your sauna ahead of time on check-in for a nominal fee. Spa facilities are in progress – please inquire on availability.`,
     meals: "no meals",
+    meal_price: "0",
     price: "90",
     min_days: "3",
     max_days: "10",
@@ -92,8 +95,11 @@ const accommodations = [
     amenities_extra_icon: "media/icons8-electric-stovetop-100.png",
     blurb: `Tranquility and privacy are assured at this magnificent luxury villa on the South Island, New Zealand. Lodge Lorien is a stunning, contemporary, executive residence overlooking Lake Whakatipu and the breathtaking Humboldt Mountains. Situated a short drive from the town of Glenorchy and only a 45 minute drive from Queenstown International Airport, the area is a natural wonderland offering the ultimate in adventure & relaxation. Visit Lodge Lorien and experience the real heart of New Zealand.`,
     meals: "Breakfast, Lunch and Dinner",
+    meal_price: "80",
     price: "240",
     min_days: "2",
     max_days: "15",
   },
 ];
+
+// (accommodation.meal_price + accommodation.price) * totalDays + 35;

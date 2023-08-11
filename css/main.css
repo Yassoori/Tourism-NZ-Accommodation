@@ -68,7 +68,7 @@ p {
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  display: none; /* Hidden by default */
+  display: none;
   color: #567939;
 }
 #landing-modal .modal-content {
@@ -99,9 +99,6 @@ p {
   flex: 1;
   text-align: center;
   position: relative;
-}
-.left-half button {
-  border: #ffffff solid 2px;
 }
 .left-half input {
   font-size: 20px;
@@ -164,6 +161,7 @@ p {
   width: 36px;
   height: 36px;
   border-radius: 18px;
+  border: none;
   background-color: #ffffff;
   color: #567939;
   font-size: 20px;
@@ -172,6 +170,7 @@ p {
   width: 120px;
   height: 36px;
   border-radius: 18px;
+  border: none;
   background-color: #ffffff;
   color: #567939;
   font-size: 18px;
@@ -181,6 +180,7 @@ p {
   background-color: #567939;
   color: #ffffff;
   font-size: 18px;
+  border: none;
 }
 
 .right-half {
@@ -290,14 +290,13 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+  position: absolute;
+  top: 15%;
+  right: 15%;
   margin: auto;
-  margin-top: 36px;
   background-color: #567939;
-  border-radius: 10px;
+  border-radius: 18px;
   width: 70%;
-  max-height: 80%;
-  overflow-y: auto;
 }
 
 .info-left {
@@ -306,6 +305,7 @@ p {
   max-width: 50%;
   flex: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 20px;
@@ -327,6 +327,7 @@ p {
   padding: 20px;
   width: 100%;
   height: 100%;
+  border-radius: 18px;
 }
 .info-right .title-rating {
   display: flex;
@@ -383,30 +384,80 @@ p {
   color: #567939;
   margin-bottom: 1rem;
 }
-.info-right .more-info-price {
+
+#more-info-price,
+#send {
   background-color: #567939;
   color: #ffffff;
   font-size: 20px;
   padding: 8px 16px;
+  border: none;
   border-radius: 8px;
   margin-top: 10px;
+  text-align: center;
 }
 
 #back-button {
-  background-color: #ffffff;
-  color: #567939;
+  background-color: #567939;
+  color: #ffffff;
   cursor: pointer;
   display: flex;
   text-align: center;
   justify-content: center;
   align-items: center;
+  z-index: 2;
   position: absolute;
-  right: 180px;
-  top: 86px;
+  right: -50px;
+  top: 0;
   padding: 8px 16px;
   border-radius: 18px;
   width: 36px;
   height: 36px;
   font-size: 20px;
   font-family: sans-serif;
+}
+
+.mapbox-container {
+  margin-bottom: 1rem;
+}
+
+.contactform-input {
+  background-color: #ffffff;
+  color: #567939;
+  font-family: "Inria Sans", sans-serif;
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  padding: 6px;
+  width: 100%;
+}
+
+#query {
+  height: 300px;
+}
+
+#send {
+  background-color: #ffffff;
+  color: #567939;
+  width: 100%;
+}
+
+#addon-container {
+  display: flex;
+  justify-content: space-between;
+}
+#addon-container .addon-label {
+  flex: 1;
+  background-color: #ffffff;
+  color: #567939;
+  font-size: 20px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  margin: 4px;
+  text-align: center;
+}
+#addon-container .addon-label .addon {
+  transform: scale(2);
+  margin-left: 11px;
 }/*# sourceMappingURL=main.css.map */

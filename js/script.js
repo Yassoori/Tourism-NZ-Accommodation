@@ -32,6 +32,8 @@ const moreInfoModal = document.getElementById("more-info-modal");
 const backButton = document.getElementById("back-button");
 const statusMessage = document.getElementById("status-message");
 
+let activeAccommodationIndex;
+
 // End Declarations
 
 // -------- Landing --------
@@ -175,15 +177,15 @@ function displayAccommodations(place, totalDays) {
     infoButtons.forEach((infoButton, index) => {
       infoButton.addEventListener("click", () => {
         const accommodation = place[index];
+        activeAccommodationIndex = index;
         moreInfoModal.innerHTML = `
-          <div id="back-button">X</div>
           <div id="more-info-content">
             <div class="info-left">
               <div class="mapbox-container">PRETEND THIS IS MAPBOX STUFF</div>
               <form id="contact-form" class="contact_form">          
                 <input type="text" name="sendername" class="contactform-input" id="sender" placeholder="Your name" value="" required>                                
                 <input type="text" name="mail" class="contactform-input" id="email" placeholder="Your Email" value="" required>                                
-                <textarea rows="4" name="query" cols="4" class="contactform-input  textarea" id="query" placeholder="Your query" value="" required>
+                <textarea rows="6" name="query" cols="40" class="contactform-input  textarea" id="query" placeholder="Your query" value="" required>
                 </textarea>                
                 <button id="send" >Send</button>                
               </form>
@@ -214,18 +216,36 @@ function displayAccommodations(place, totalDays) {
                 </div>
               </div>
               <div class="more-info-details">
-                <h4>${accommodation.location}</h4>
+                <p>${accommodation.amenities}</p>
                 <p>
-                  ${accommodation.guest_range} Guests ${accommodation.amenities}
+                  ${accommodation.guest_range} Guests
                 </p>
                 <div>
                   <p>${accommodation.blurb}</p>
-                  <p>${accommodation.meals} available</p>
+                </div>
+                <div>
+                  <p>$${accommodation.price} a night</p>
+                  <div id="addon-container">
+                  <label class="addon-label">+ ${accommodation.meals} for $${
+          accommodation.meal_price
+        }
+                    <input type="checkbox" class="addon" id="meals" onchange="addMeals()">
+                    <span ></span>
+                  </label>
+                  <label class="addon-label">+ Shuttle from Queenstown for $35
+                    <input type="checkbox" class="addon" id="transport" onchange="addTransport()">
+                    <span ></span>
+                  </label>
+                  </div>
                 </div>
               </div>
-              <h3 class="more-info-price">$${accommodation.price} a night</h3>
+              <h3 id="more-info-price">$${
+                accommodation.price * totalDays
+              } total</h3>
               </div>
             </div>
+            <div id="back-button">X</div>
+
           </div>
         `;
         moreInfoModal.style.display = "block";
@@ -245,6 +265,41 @@ function displayAccommodations(place, totalDays) {
           },
           loop: true,
         });
+
+        // const addon = document.getElementById("addon");
+        // const meals = document.getElementById("meals");
+        // const transport = document.getElementById("transport");
+        // const moreInfoPrice = document.getElementById("more-info-price");
+
+        // function updateTotalPrice(accommodation, totalDays) {
+        //   const mealsCheckbox = document.getElementById("meals");
+        //   const transportCheckbox = document.getElementById("transport");
+        //   const moreInfoPrice = document.getElementById("more-info-price");
+
+        //   let totalPrice = accommodation.price * totalDays;
+
+        //   if (mealsCheckbox.checked) {
+        //     totalPrice += accommodation.meal_price * totalDays;
+        //   }
+
+        //   if (transportCheckbox.checked) {
+        //     totalPrice += 35;
+        //   }
+
+        //   moreInfoPrice.textContent = `$${totalPrice} total`;
+        // }
+
+        // function addMeals() {
+        //   const accommodation = accommodations[activeAccommodationIndex];
+        //   const totalDays = parseInt(dateStatus.innerText.split(":")[1].trim());
+        //   updateTotalPrice(accommodation, totalDays);
+        // }
+
+        // function addTransport() {
+        //   const accommodation = accommodations[activeAccommodationIndex];
+        //   const totalDays = parseInt(dateStatus.innerText.split(":")[1].trim());
+        //   updateTotalPrice(accommodation, totalDays);
+        // }
 
         const contactFormInput =
           document.querySelectorAll(".contactform-input");
